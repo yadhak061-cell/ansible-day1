@@ -1,0 +1,17 @@
+---
+- name: My First Local Docker Playbook
+  hosts: local
+  gather_facts: no
+  tasks:
+    - name: Print a message to verify Ansible is working
+      ansible.builtin.debug:
+        msg: "Hello Poorna! Ansible is successfully running on your system."
+
+    - name: Ensure a test Docker container is running
+      community.docker.docker_container:
+        name: test-ansible-nginx
+        image: nginx:latest
+        state: started
+        published_ports:
+          - "8080:80"
+        recreate: yes
